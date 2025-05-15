@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
-<project xmlns="http://www.plcopen.org/xml/tc6_0201" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:ns1="http://www.plcopen.org/xml/tc6.xsd">
+<project xmlns="http://www.plcopen.org/xml/tc6_0201" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:ns1="http://www.plcopen.org/xml/tc6_0201">
   <fileHeader companyName="Unknown" productName="Unnamed" productVersion="1" creationDateTime="2025-05-15T16:41:17"/>
-  <contentHeader name="Unnamed" modificationDateTime="2025-05-15T16:55:06">
+  <contentHeader name="Unnamed" modificationDateTime="2025-05-15T17:50:37">
     <coordinateInfo>
       <fbd>
         <scaling x="10" y="10"/>
@@ -25,22 +25,24 @@
                 <BOOL/>
               </type>
             </variable>
-            <variable name="counter_enable">
+          </localVars>
+          <localVars>
+            <variable name="counter_enable" address="%QX0.0">
               <type>
                 <BOOL/>
               </type>
             </variable>
-            <variable name="counter_reset">
+            <variable name="counter_reset" address="%QX0.1">
               <type>
                 <BOOL/>
               </type>
             </variable>
-            <variable name="counter_q">
+            <variable name="counter_q" address="%QX0.2">
               <type>
                 <BOOL/>
               </type>
             </variable>
-            <variable name="counter_max">
+            <variable name="counter_max" address="%QW0">
               <type>
                 <INT/>
               </type>
@@ -48,6 +50,8 @@
                 <simpleValue value="10"/>
               </initialValue>
             </variable>
+          </localVars>
+          <localVars>
             <variable name="CTU0">
               <type>
                 <derived name="CTU"/>

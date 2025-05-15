@@ -24,10 +24,14 @@ END_FUNCTION_BLOCK
 PROGRAM waterESP
   VAR
     pulse : BOOL;
-    counter_enable : BOOL;
-    counter_reset : BOOL;
-    counter_q : BOOL;
-    counter_max : INT := 10;
+  END_VAR
+  VAR
+    counter_enable AT %QX0.0 : BOOL;
+    counter_reset AT %QX0.1 : BOOL;
+    counter_q AT %QX0.2 : BOOL;
+    counter_max AT %QW0 : INT := 10;
+  END_VAR
+  VAR
     CTU0 : CTU;
     counter_value : INT;
     TON1 : TON;
