@@ -41,47 +41,113 @@ __end:
 
 
 
+static inline BOOL __WATERESP_LT__BOOL__INT1(BOOL EN,
+  UINT __PARAM_COUNT,
+  INT IN1,
+  INT IN2,
+  WATERESP *data__)
+{
+  BOOL __res;
+  BOOL __TMP_ENO = __GET_VAR(data__->_TMP_LT7_ENO,);
+  __res = LT__BOOL__INT(EN,
+    &__TMP_ENO,
+    __PARAM_COUNT,
+    IN1,
+    IN2);
+  __SET_VAR(,data__->_TMP_LT7_ENO,,__TMP_ENO);
+  return __res;
+}
+
+static inline BOOL __WATERESP_AND__BOOL__BOOL2(BOOL EN,
+  UINT __PARAM_COUNT,
+  BOOL IN1,
+  BOOL IN2,
+  WATERESP *data__)
+{
+  BOOL __res;
+  BOOL __TMP_ENO = __GET_VAR(data__->_TMP_AND12_ENO,);
+  __res = AND__BOOL__BOOL(EN,
+    &__TMP_ENO,
+    __PARAM_COUNT,
+    IN1,
+    IN2);
+  __SET_VAR(,data__->_TMP_AND12_ENO,,__TMP_ENO);
+  return __res;
+}
+
+static inline BOOL __WATERESP_GT__BOOL__INT3(BOOL EN,
+  UINT __PARAM_COUNT,
+  INT IN1,
+  INT IN2,
+  WATERESP *data__)
+{
+  BOOL __res;
+  BOOL __TMP_ENO = __GET_VAR(data__->_TMP_GT4_ENO,);
+  __res = GT__BOOL__INT(EN,
+    &__TMP_ENO,
+    __PARAM_COUNT,
+    IN1,
+    IN2);
+  __SET_VAR(,data__->_TMP_GT4_ENO,,__TMP_ENO);
+  return __res;
+}
+
 void WATERESP_init__(WATERESP *data__, BOOL retain) {
-  __INIT_VAR(data__->PULSE,__BOOL_LITERAL(FALSE),retain)
-  __INIT_LOCATED(BOOL,__QX0_0,data__->COUNTER_ENABLE,retain)
-  __INIT_LOCATED_VALUE(data__->COUNTER_ENABLE,__BOOL_LITERAL(FALSE))
-  __INIT_LOCATED(BOOL,__QX0_1,data__->COUNTER_RESET,retain)
-  __INIT_LOCATED_VALUE(data__->COUNTER_RESET,__BOOL_LITERAL(FALSE))
-  __INIT_LOCATED(BOOL,__QX0_2,data__->COUNTER_Q,retain)
-  __INIT_LOCATED_VALUE(data__->COUNTER_Q,__BOOL_LITERAL(FALSE))
-  __INIT_LOCATED(INT,__QW0,data__->COUNTER_MAX,retain)
-  __INIT_LOCATED_VALUE(data__->COUNTER_MAX,10)
-  CTU_init__(&data__->CTU0,retain);
-  __INIT_VAR(data__->COUNTER_VALUE,0,retain)
-  TON_init__(&data__->TON1,retain);
-  TOF_init__(&data__->TOF0,retain);
-  R_TRIG_init__(&data__->R_TRIG1,retain);
+  __INIT_VAR(data__->CURRENTDISTANCE,0,retain)
+  __INIT_VAR(data__->FULLG_LED,__BOOL_LITERAL(FALSE),retain)
+  __INIT_VAR(data__->FULLG_THRESHOLD,20,retain)
+  __INIT_VAR(data__->MIDY_LED,__BOOL_LITERAL(FALSE),retain)
+  __INIT_VAR(data__->MIDY_THRESHOLD,50,retain)
+  __INIT_VAR(data__->EMPR_LED,__BOOL_LITERAL(FALSE),retain)
+  __INIT_VAR(data__->EMPR_THRESHOLD,50,retain)
+  __INIT_VAR(data__->SYSSTART_STOP,__BOOL_LITERAL(FALSE),retain)
+  __INIT_VAR(data__->_TMP_LT7_ENO,__BOOL_LITERAL(FALSE),retain)
+  __INIT_VAR(data__->_TMP_LT7_OUT,__BOOL_LITERAL(FALSE),retain)
+  __INIT_VAR(data__->_TMP_LT15_OUT,__BOOL_LITERAL(FALSE),retain)
+  __INIT_VAR(data__->_TMP_GT14_OUT,__BOOL_LITERAL(FALSE),retain)
+  __INIT_VAR(data__->_TMP_AND12_ENO,__BOOL_LITERAL(FALSE),retain)
+  __INIT_VAR(data__->_TMP_AND12_OUT,__BOOL_LITERAL(FALSE),retain)
+  __INIT_VAR(data__->_TMP_GT4_ENO,__BOOL_LITERAL(FALSE),retain)
+  __INIT_VAR(data__->_TMP_GT4_OUT,__BOOL_LITERAL(FALSE),retain)
 }
 
 // Code part
 void WATERESP_body__(WATERESP *data__) {
   // Initialise TEMP variables
 
-  __SET_VAR(data__->R_TRIG1.,CLK,,(__GET_VAR(data__->PULSE,) && __GET_LOCATED(data__->COUNTER_ENABLE,)));
-  R_TRIG_body__(&data__->R_TRIG1);
-  __SET_VAR(data__->CTU0.,EN,,__BOOL_LITERAL(TRUE));
-  __SET_VAR(data__->CTU0.,CU,,__GET_VAR(data__->R_TRIG1.Q,));
-  __SET_VAR(data__->CTU0.,R,,(__GET_LOCATED(data__->COUNTER_Q,) || __GET_LOCATED(data__->COUNTER_RESET,)));
-  __SET_VAR(data__->CTU0.,PV,,__GET_LOCATED(data__->COUNTER_MAX,));
-  CTU_body__(&data__->CTU0);
-  if (__GET_VAR(data__->CTU0.ENO,)) {
-    __SET_VAR(data__->,COUNTER_VALUE,,__GET_VAR(data__->CTU0.CV,));
-  };
-  __SET_LOCATED(data__->,COUNTER_Q,,__GET_VAR(data__->CTU0.Q,));
-  __SET_VAR(data__->TON1.,EN,,__BOOL_LITERAL(TRUE));
-  __SET_VAR(data__->TON1.,IN,,!(__GET_VAR(data__->PULSE,)));
-  __SET_VAR(data__->TON1.,PT,,__time_to_timespec(1, 500, 0, 0, 0, 0));
-  TON_body__(&data__->TON1);
-  __SET_VAR(data__->TOF0.,EN,,__GET_VAR(data__->TON1.ENO,));
-  __SET_VAR(data__->TOF0.,IN,,__GET_VAR(data__->TON1.Q,));
-  __SET_VAR(data__->TOF0.,PT,,__time_to_timespec(1, 500, 0, 0, 0, 0));
-  TOF_body__(&data__->TOF0);
-  __SET_VAR(data__->,PULSE,,__GET_VAR(data__->TOF0.Q,));
+  __SET_VAR(data__->,_TMP_LT7_OUT,,__WATERESP_LT__BOOL__INT1(
+    (BOOL)__BOOL_LITERAL(TRUE),
+    (UINT)2,
+    (INT)__GET_VAR(data__->CURRENTDISTANCE,),
+    (INT)__GET_VAR(data__->FULLG_THRESHOLD,),
+    data__));
+  __SET_VAR(data__->,FULLG_LED,,__GET_VAR(data__->_TMP_LT7_OUT,));
+  __SET_VAR(data__->,_TMP_LT15_OUT,,LT__BOOL__INT(
+    (BOOL)__BOOL_LITERAL(TRUE),
+    NULL,
+    (UINT)2,
+    (INT)__GET_VAR(data__->CURRENTDISTANCE,),
+    (INT)__GET_VAR(data__->MIDY_THRESHOLD,)));
+  __SET_VAR(data__->,_TMP_GT14_OUT,,GT__BOOL__INT(
+    (BOOL)__BOOL_LITERAL(TRUE),
+    NULL,
+    (UINT)2,
+    (INT)__GET_VAR(data__->CURRENTDISTANCE,),
+    (INT)__GET_VAR(data__->FULLG_THRESHOLD,)));
+  __SET_VAR(data__->,_TMP_AND12_OUT,,__WATERESP_AND__BOOL__BOOL2(
+    (BOOL)__BOOL_LITERAL(TRUE),
+    (UINT)2,
+    (BOOL)__GET_VAR(data__->_TMP_LT15_OUT,),
+    (BOOL)__GET_VAR(data__->_TMP_GT14_OUT,),
+    data__));
+  __SET_VAR(data__->,MIDY_LED,,__GET_VAR(data__->_TMP_AND12_OUT,));
+  __SET_VAR(data__->,_TMP_GT4_OUT,,__WATERESP_GT__BOOL__INT3(
+    (BOOL)__BOOL_LITERAL(TRUE),
+    (UINT)2,
+    (INT)__GET_VAR(data__->CURRENTDISTANCE,),
+    (INT)__GET_VAR(data__->EMPR_THRESHOLD,),
+    data__));
+  __SET_VAR(data__->,MIDY_LED,,__GET_VAR(data__->_TMP_GT4_OUT,));
 
   goto __end;
 
